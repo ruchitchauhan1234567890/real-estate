@@ -4,7 +4,7 @@ export const TaskContext = createContext()
 
 export const TaskProvider = ({ children }) => {
     const [taskData, setTaskData] = useState(
-        JSON.parse(localStorage.getItem("tasks"))
+        JSON.parse(localStorage.getItem("tasks")) || []
     )
     const [editedTask, setEditedTask] = useState(null)
     const [open, setOpen] = useState(false)
