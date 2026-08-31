@@ -16,6 +16,7 @@ const RegisterForm = () => {
         name: "",
         email: "",
         password: "",
+        isAdmin: true
     })
 
     const [showPassword, setShowPassword] = useState(false)
