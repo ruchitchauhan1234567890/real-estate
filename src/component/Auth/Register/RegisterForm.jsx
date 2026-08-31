@@ -4,14 +4,16 @@ import {
     HiOutlineMail,
     HiOutlineLockClosed,
     HiOutlineEye,
-    HiOutlineEyeOff
+    HiOutlineEyeOff,
+    HiOutlineUser
 } from "react-icons/hi"
 
-const LoginForm = () => {
+const RegisterForm = () => {
 
     const navigate = useNavigate()
 
     const [inputData, setInputData] = useState({
+        name: "",
         email: "",
         password: ""
     })
@@ -33,7 +35,7 @@ const LoginForm = () => {
 
 
 
-    const handleLogin = (e) => {
+    const handleRegister = (e) => {
 
         e.preventDefault()
 
@@ -42,28 +44,36 @@ const LoginForm = () => {
                 localStorage.getItem("employee")
             ) || []
 
-        const loggedUser = employees.find(
-            (employee) =>
-                employee.email === inputData.email &&
-                employee.password === inputData.password
+        const userExists = employees.find(
+            (employee) => employee.email === inputData.email
         )
 
-        if (!loggedUser) {
-            alert("Invalid email or password")
+        if (userExists) {
+            alert("User with this email already exists.")
             return
         }
 
-        if (loggedUser.status !== "Active") {
-            alert("Your account is inactive")
-            return
+        const newEmployee = {
+            id: crypto.randomUUID(),
+            name: inputData.name,
+            email: inputData.email,
+            password: inputData.password,
+            department: "Sales",
+            role: "Sales Executive",
+            status: "Active",
+            isAdmin: false,
+            date: new Date().toISOString().split('T')[0]
         }
+        
+        employees.push(newEmployee)
 
         localStorage.setItem(
-            "loggedUser",
-            JSON.stringify(loggedUser)
+            "employee",
+            JSON.stringify(employees)
         )
-
-        navigate("/dashboard")
+        
+        alert("Registration successful! Please login.")
+        navigate("/")
     }
 
 
@@ -146,7 +156,7 @@ const LoginForm = () => {
                     text-gray-900
                     tracking-tight
                 ">
-                    Welcome back
+                    Create an account
                 </h2>
 
 
@@ -156,7 +166,7 @@ const LoginForm = () => {
                     text-gray-500
                     font-medium
                 ">
-                    Please enter your details to sign in.
+                    Please enter your details to register.
                 </p>
 
             </div>
@@ -166,9 +176,88 @@ const LoginForm = () => {
             {/* FORM */}
             {/* ================================================= */}
 
-            <form onSubmit={handleLogin}>
+            <form onSubmit={handleRegister}>
 
 
+                {/* ================= NAME ================= */}
+
+                <div className="mb-5">
+
+                    <label className="
+                        block
+                        text-xs
+                        font-semibold
+                        text-gray-700
+                        mb-2
+                    ">
+                        Full Name
+                    </label>
+
+
+                    <div className="relative">
+
+                        <HiOutlineUser className="
+                            absolute
+                            left-3
+                            top-1/2
+                            -translate-y-1/2
+
+                            w-4
+                            h-4
+
+                            text-gray-400
+
+                            pointer-events-none
+                        " />
+
+
+                        <input
+                            type="text"
+                            name="name"
+                            value={inputData.name}
+                            onChange={handleChange}
+                            placeholder="Enter your full name"
+                            required
+                            className="
+                                w-full
+                                h-12
+
+                                pl-10
+                                pr-4
+
+                                border
+                                border-gray-300/80
+
+                                rounded-xl
+
+                                bg-gray-50/50
+
+                                text-sm
+                                text-gray-900
+                                font-medium
+
+                                placeholder:text-gray-400
+                                placeholder:font-normal
+
+                                outline-none
+
+                                transition-all
+                                duration-200
+
+                                hover:border-gray-300
+                                hover:bg-gray-50
+
+                                focus:bg-white
+                                focus:border-blue-500
+                                focus:ring-4
+                                focus:ring-blue-500/10
+                            "
+                        />
+
+                    </div>
+
+                </div>
+                
                 {/* ================= EMAIL ================= */}
 
                 <div className="mb-5">
@@ -251,43 +340,17 @@ const LoginForm = () => {
 
                 {/* ================= PASSWORD ================= */}
 
-                <div className="mb-4">
+                <div className="mb-6">
 
-                    {/* Label + Forgot */}
-
-                    <div className="
-                        flex
-                        items-center
-                        justify-between
+                    <label className="
+                        block
+                        text-xs
+                        font-semibold
+                        text-gray-700
                         mb-2
                     ">
-
-                        <label className="
-                            text-xs
-                            font-semibold
-                            text-gray-700
-                        ">
-                            Password
-                        </label>
-
-
-                        <button
-                            type="button"
-                            className="
-                                text-[11px]
-                                font-medium
-
-                                text-blue-600
-
-                                hover:text-blue-700
-
-                                transition
-                            "
-                        >
-                            Forgot password?
-                        </button>
-
-                    </div>
+                        Password
+                    </label>
 
 
                     {/* Password Input */}
@@ -318,7 +381,7 @@ const LoginForm = () => {
                             name="password"
                             value={inputData.password}
                             onChange={handleChange}
-                            placeholder="Enter your password"
+                            placeholder="Create a password"
                             required
                             className="
                                 w-full
@@ -406,52 +469,8 @@ const LoginForm = () => {
 
                 </div>
 
-
                 {/* ================================================= */}
-                {/* REMEMBER ME */}
-                {/* ================================================= */}
-
-                <div className="
-                    flex
-                    items-center
-                    mb-6
-                ">
-
-                    <label className="
-                        flex
-                        items-center
-                        gap-2
-
-                        cursor-pointer
-                    ">
-
-                        <input
-                            type="checkbox"
-                            className="
-                                w-3.5
-                                h-3.5
-
-                                accent-blue-600
-
-                                cursor-pointer
-                            "
-                        />
-
-
-                        <span className="
-                            text-xs
-                            text-gray-500
-                        ">
-                            Remember me
-                        </span>
-
-                    </label>
-
-                </div>
-
-
-                {/* ================================================= */}
-                {/* LOGIN BUTTON */}
+                {/* REGISTER BUTTON */}
                 {/* ================================================= */}
 
                 <button
@@ -487,7 +506,7 @@ const LoginForm = () => {
                         duration-200
                     "
                 >
-                    Sign In
+                    Sign Up
                 </button>
 
             </form>
@@ -512,11 +531,11 @@ const LoginForm = () => {
                     text-gray-500
                 ">
 
-                    Don't have an account?
+                    Already have an account?
 
                     <button
                         type="button"
-                        onClick={() => navigate("/register")}
+                        onClick={() => navigate("/")}
                         className="
                             ml-1
 
@@ -529,7 +548,7 @@ const LoginForm = () => {
                             transition
                         "
                     >
-                        Sign Up
+                        Sign In
                     </button>
 
                 </p>
@@ -557,4 +576,4 @@ const LoginForm = () => {
     )
 }
 
-export default LoginForm
+export default RegisterForm

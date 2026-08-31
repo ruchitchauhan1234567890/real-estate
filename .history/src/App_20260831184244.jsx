@@ -11,7 +11,6 @@ import Lead from "./pages/Lead"
 import Task from "./pages/Task"
 import Report from "./pages/Report"
 import Login from "./pages/Login"
-import Register from "./pages/Register"
 
 import { LeadProvider } from "./ContextAPI/LeadContext"
 import { TaskProvider } from "./ContextAPI/TaskContext"
@@ -33,10 +32,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Login />
-      },
-      {
-        path: "/register",
-        element: <Register />
       }
     ]
   },
