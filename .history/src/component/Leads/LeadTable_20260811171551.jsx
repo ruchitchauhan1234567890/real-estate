@@ -1,0 +1,226 @@
+import React, { useContext, useEffect, useState } from 'react'
+import { IoSearchSharp } from "react-icons/io5";
+import { MdDeleteOutline } from "react-icons/md";
+import { HiPencilSquare } from "react-icons/hi2";
+import { LeadContext } from '../../ContextAPI/LeadContext';
+import Select from 'react-select';
+
+const LeadTable = ({ open, setOpen, setEditedLead }) => {
+  const leads = JSON.parse(localStorage.getItem("leads"))
+  const tasks = JSON.parse(localStorage.getItem("tasks"))
+
+  const { leadData, setLeadData, selectedLead, setSelectedLead, selectedEmp, setSelectedEmp } = useContext(LeadContext)
+  const [allLeads, setAllLeads] = useState([])
+  const [filters, setFilters] = useState({
+    status: "All",
+    assigned: "All",
+    leadSearch: "",
+
+  })
+  
+  console.log(leadData)
+  console.log(allLeads)
+
+  const handleCheck = (e, id) => {
+    console.log(e)
+    const { checked } = e.target
+    console.log(checked)
+    if (checked) {
+      setSelectedLead((prev) => [...prev, id])
+    } else {
+      if (selectedLead.length == 0) return
+      const uncheck = selectedLead.filter((curr) => curr !== id)
+      setSelectedLead(uncheck)
+    }
+    console.log("hello")
+  }
+
+  console.log(selectedLead)
+
+
+
+  useEffect(() => {
+    setAllLeads(leads)
+  }, [leadData, selectedEmp]);
+
+  console.log(leads)
+
+
+  const Assigned = leads.filter((curr) => curr.assignedTo)
+  console.log(Assigned)
+  const unAssigned = leads.filter((curr) => !curr.assignedTo)
+  console.log(unAssigned)
+
+  const newLead = leads.filter((curr) => curr.status == "New")
+  console.log(newLead)
+  const convertedLead = leads.filter((curr) => curr.status == "Converted")
+  console.log(convertedLead)
+  const connected = leads.filter((curr) => curr.status == "Connected")
+  console.log(connected)
+  const qualified = leads.filter((curr) => curr.status == "Qualified")
+  console.log(qualified)
+  const siteVisit = leads.filter((curr) => curr.status == "Site Visit")
+  console.log(siteVisit)
+  const negotiation = leads.filter((curr) => curr.status == "Negotiation")
+  console.log(negotiation)
+  const lost = leads.filter((curr) => curr.status == "Lost")
+  console.log(lost)
+
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    console.log(value)
+    setFilters((prev) => ({ ...prev, [name]: value }))
+  }
+
+
+  const filterData = leads.filter((lead) => {
+    const statusMatch = filters.status === "All" || lead.status === filters.status
+
+    const assignedMatch =
+      filters.assigned === "All" ||
+      (filters.assigned === "Assigned" && lead.assignedTo) ||
+      (filters.assigned === "Un Assigned" && !lead.assignedTo);
+
+    const leadSearch = filters.status === "" || lead.name.includes(filters.leadSearch)
+
+    return (statusMatch && assignedMatch && leadSearch)
+  })
+
+  const handleReset = (e) => {
+    e.preventDefault()
+    setFilters({
+      status: "All",
+      assigned: "All",
+      leadSearch: ""
+    })
+  }
+
+  console.log(allLeads)
+  console.log(leads)
+
+  const handleDelete = (id) => {
+
+    const leads = JSON.parse(localStorage.getItem("leads"))
+    const findLead = leads.find((lead) => lead.id === id)
+    const deleteLead = filterData.filter((lead) => lead.id !== id)
+    const task = tasks.filter((task) => task.lead !== findLead.name)
+
+    setAllLeads(deleteLead)
+    setLeadData(deleteLead)
+
+    localStorage.setItem("leads", JSON.stringify(deleteLead))
+    localStorage.setItem("tasks", JSON.stringify(task))
+  }
+
+  const handleUpdate = (lead) => {
+    setOpen(!open)
+    setEditedLead(lead)
+  }
+
+  const statusOption = [
+    { value: "All", label: "All" },
+    { value: "New", label: "New" },
+    { value: "Connected", label: "Connected" },
+    { value: "Qualified", label: "Qualified" },
+    { value: "Site-Visit", label: "Site-Visit" },
+    { value: "Lost", label: "Lost" },
+    { value: "Negotiation", label: "Negotiation" }
+  ]
+
+  const assignedOption = [
+    { value: "All", label: "All" },
+    { value: "Assigned", label: "Assigned" },
+    { value: "Un Assigned", label: "Un Assigned" }
+  ]
+
+  const handleSelect = () => {
+    const unAssign = leads.filter((lead) => !lead.assignedTo)
+    console.log(unAssign)
+  }
+
+  return (
+    <div>
+      <div className="flex gap-2">
+        <div className="mt-2">
+          <input type="text" name="leadSearch" value={filters.leadSearch} onChange={handleChange} placeholder='search lead' className="border rounded p-1" />
+        </div>
+        <form className="flex gap-2">
+          <div className="mt-2  border rounded ">
+
+            <Select
+              options={statusOption}
+              placeholder={filters.status}
+              value={filters.status}
+              onChange={(select) => {
+                setFilters((prev) => ({ ...prev, status: select.value }))
+              }}
+              className="w-35"
+            />
+          </div>
+          <div className="mt-2 border rounded">
+            <Select
+              options={assignedOption}
+              placeholder={filters.assigned}
+              value={filters.assigned}
+              onChange={(select) => {
+                setFilters((prev) => ({ ...prev, assigned: select.value }))
+              }}
+              className="w-40"
+            />
+          </div>
+
+          <button onClick={handleReset} className=" cursor-pointer mt-2 bg-gray-300  rounded items-center px-2  hover:bg-gray-400">Reset Filter</button>
+
+        </form>
+      </div>
+      <table className="w-full border-collapse border-2  mt-2">
+        <thead>
+          <tr className="border">
+            <th className="border">
+              <button className="border rounded-sm px-1" onClick={handleSelect}>
+                select All
+              </button>
+            </th>
+            <th className="border p-2">#</th>
+            <th className="border">Lead Name</th>
+            <th className="border">Contact Info</th>
+            <th className="border">Interested IN</th>
+            <th className="border">Source</th>
+            <th className="border">Status</th>
+            <th className="border">Assigned To</th>
+            <th className="border">Add On</th>
+            <th className="border">Next-FollowUp</th>
+            <th className="border">Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {filterData ? filterData.map((curr, index) => {
+            return (
+              <tr>
+                <td className="border items-center pl-7"><input type="checkbox" checked={selectedLead.includes(curr.id)} onChange={(e) => handleCheck(e, curr.id)} className="border-2" /></td>
+                <td className="border p-1">{index + 1}</td>
+                <td className="border p-1">{curr.name}</td>
+                <td className="border p-1">{curr.phone}</td>
+                <td className="border p-1">{curr.interested}</td>
+                <td className="border p-1">{curr.source}</td>
+                <td className="border p-1">{curr.status}</td>
+                <td className="border p-1">{curr.assignedTo ? curr.assignedTo : " - "}</td>
+                <td className="border p-1">{curr.date}</td>
+                <td className="border p-1">{curr.nextFollowUpDate ? curr.nextFollowUpDate : " - "}</td>
+                <td className="border flex justify-between py-1 px-3">
+                  <MdDeleteOutline onClick={() => handleDelete(curr.id)} className="w-5 cursor-pointer bg-gray-300 hover:bg-gray-400 rounded h-6 " />
+                  <HiPencilSquare onClick={() => handleUpdate(curr)} className="w-5 cursor-pointer bg-gray-300 hover:bg-gray-400  rounded  h-6" />
+                </td>
+              </tr>
+            )
+          }) : ""}
+
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+export default LeadTable

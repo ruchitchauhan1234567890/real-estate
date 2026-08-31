@@ -1,0 +1,123 @@
+import React, { useEffect, useState } from 'react'
+
+const AddTask = () => {
+    const [taskData,setTaskData] = useState([])
+    const [selectEmployee, setSelectEmployee] = useState("")
+    const [inputData, setInputData] = useState({
+        title: "",
+        description: "",
+        lead: "",
+        assign: "",
+        priority: "",
+        taskStatus: "",
+        createdDate: "",
+        completedDate: ""
+    })
+
+    const leads = JSON.parse(localStorage.getItem("leads"))
+    const emp = JSON.parse(localStorage.getItem("employee"))
+    console.log(emp)
+
+
+    // const selectedEmployee = (e,leadName) => {
+    //     const leadData = leads.find((lead) => lead.name === leadName)
+    //     console.log(leadData)
+    //     const employee = emp.find((emp) => emp.name === leadData.assignedTo)
+    //     setSelectEmployee(employee)
+    //     console.log(employee)
+    // }
+
+    useEffect(() => {
+        if (!inputData.lead) return
+
+        const leadData = leads.find((lead) => lead.name === inputData.lead)
+
+        const employee = emp.find((emp) => emp.name === leadData.assignedTo)
+
+        setSelectEmployee(employee)
+
+        setInputData((prev) => ({
+            ...prev,
+            assign : employee?.name || ""
+        }))
+    }, [inputData.lead])
+
+    console.log(selectEmployee)
+
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        setInputData((prev) => ({ ...prev, [name]: value }))
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        setTaskData((prev) => [...prev,inputData])
+    }
+
+    console.log(taskData)
+    console.log(inputData)
+    return (
+        <div>
+            <div className="inset-0 flex ">
+                <form onSubmit={handleSubmit}>
+                    <div className="border grid grid-cols-3 p-2 ">
+                        <div className="border flex flex-col gap-2 m-2">
+                            <label>Title :</label>
+                            <input name="title" className="border rounded" onChange={handleChange} type="text" placeholder="enter task title" />
+                        </div>
+
+                        <div className="border flex flex-col gap-2 m-2">
+                            <label>Description</label>
+                            <input name="description" className="border rounded" onChange={handleChange} type="text" placeholder='enter task description' />
+                        </div>
+
+                        <div className="border flex flex-col gap-2 m-2">
+                            <label>Lead</label>
+                            <select name="lead" className="border rounded" onChange={(e) => { handleChange(e), selectedEmployee() }}>
+                                <option disabled selected>Select Lead</option>
+                                {leads.map((lead) => {
+                                    return (
+                                        <option>{lead.name}</option>
+                                    )
+                                })}
+                            </select>
+                        </div>
+
+                        <div className="border flex flex-col gap-2 m-2">
+                            <label>Assign :</label>
+                            <div className="border rounded" name="assign" value={selectEmployee.name}>{selectEmployee.name}</div>
+                        </div>
+
+                        <div className="border flex flex-col gap-2 m-2">
+                            <label>Priority</label>
+                            <select className="border rounded" name="priority" onChange={handleChange}>
+                                <option>Low</option>
+                                <option>High</option>
+                                <option>Medium</option>
+                            </select>
+                        </div>
+
+                        <div className="border flex flex-col gap-2 m-2">
+                            <label>Task Status</label>
+                            <select className="border rounded" name="taskStatus" onChange={handleChange}>
+                                <option>Pending</option>
+                                <option>Completed</option>
+                                <option>Processing</option>
+                            </select>
+                        </div>
+
+                        <div className="border flex flex-col gap-2 m-2">
+                            <label>created date</label>
+                            <input onChange={handleChange} name="createdDate" className="border rounded" type="date" />
+                        </div>
+
+                        <button>Add Task</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    )
+}
+
+export default AddTask

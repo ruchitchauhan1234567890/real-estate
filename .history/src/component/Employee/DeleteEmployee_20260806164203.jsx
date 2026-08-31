@@ -1,0 +1,15 @@
+import React from 'react'
+
+const DeleteEmployee = ({setDeleteModelOpen,deleteModelOpen}) => {
+
+  if(!deleteModelOpen) return   
+  return (
+    <div>
+      <div className="fixed inset-0 flex items-center m-auto w-150 h-100 bg-white" >
+            hello
+      </div>
+    </div>
+  )
+}
+
+export default DeleteEmployee

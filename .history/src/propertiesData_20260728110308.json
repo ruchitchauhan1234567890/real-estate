@@ -1,0 +1,70 @@
+{
+  "properties": [
+  
+    {
+      "propertyName": "xw",
+      "type": "Independent House",
+      "location": "ce",
+      "status": "Sold",
+      "src": "C:\\fakepath\\ChatGPT Image Jul 27, 2026, 04_07_32 PM.png",
+      "id": "LAMv0rRgoIU"
+    },
+    {
+      "propertyName": "",
+      "type": "",
+      "location": "",
+      "status": "",
+      "src": "",
+      "id": "-V1d19PVUDU"
+    },
+    {
+      "propertyName": "",
+      "type": "",
+      "location": "",
+      "status": "",
+      "src": "",
+      "id": "6OgLxnZsluQ"
+    },
+    {
+      "propertyName": "",
+      "type": "",
+      "location": "",
+      "status": "",
+      "src": "",
+      "id": "N2BvgZkPfYY"
+    },
+    {
+      "propertyName": "",
+      "type": "",
+      "location": "",
+      "status": "",
+      "src": "",
+      "id": "0eH3Eiklxpo"
+    },
+    {
+      "propertyName": "",
+      "type": "",
+      "location": "",
+      "status": "",
+      "src": "",
+      "id": "P8U2v_C3bXA"
+    },
+    {
+      "propertyName": "",
+      "type": "",
+      "location": "",
+      "status": "",
+      "src": "",
+      "id": "j2vKo6o-tYM"
+    },
+    {
+      "propertyName": "",
+      "type": "",
+      "location": "",
+      "status": "",
+      "src": "",
+      "id": "7Zlf9U5Wqks"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

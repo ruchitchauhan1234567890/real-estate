@@ -1,0 +1,23 @@
+import React from "react";
+
+export const NavBar = () => {
+
+  const loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
+  console.log(loggedUser)
+
+  return (
+    <div className="h-12 bg-white shadow flex items-center justify-between px-6">
+      <h1 className="text-xl font-semibold">
+        Real Estate Management
+      </h1>
+
+      <div className="flex items-center gap-3">
+        <img
+          alt="profile"
+          className="w-10 h-10 rounded-full"
+        />
+        <span className="font-medium">Admin</span>
+      </div>
+    </div>
+  );
+};

@@ -1,0 +1,120 @@
+import React from "react"
+import Select from "react-select"
+
+const EmployeeDashboardForm = ({ selectEmp, setSelectEmp }) => {
+
+    const employee = JSON.parse(localStorage.getItem("employee")) || []
+
+    const employees = employee.filter((emp) => !emp.isAdmin)
+
+    const options = employees.map((emp) => ({
+        value: emp.name,
+        label: emp.name
+    }))
+
+    return (
+        <div className="flex items-center justify-between mb-3">
+
+            {/* Left Content */}
+            <div>
+                <p className="text-lg font-semibold text-gray-900">
+                    Employee Dashboard
+                </p>
+
+                <p className="text-xs text-gray-500 mt-0.5">
+                    View employee performance and their activities
+                </p>
+            </div>
+
+            {/* Employee Select */}
+            <div className="w-52">
+
+                <Select
+                    options={options}
+                    value={
+                        options.find(
+                            (option) => option.value === selectEmp
+                        ) || null
+                    }
+                    placeholder="Select Employee"
+                    onChange={(selected) => {
+                        setSelectEmp(selected?.value || "")
+                    }}
+                    isSearchable={false}
+                    styles={{
+                        control: (base, state) => ({
+                            ...base,
+                            minHeight: "38px",
+                            height: "38px",
+                            borderRadius: "8px",
+                            borderColor: state.isFocused
+                                ? "#2563eb"
+                                : "#e5e7eb",
+                            boxShadow: state.isFocused
+                                ? "0 0 0 1px #2563eb"
+                                : "none",
+                            fontSize: "12px",
+                            backgroundColor: "#fff",
+                            cursor: "pointer"
+                        }),
+
+                        valueContainer: (base) => ({
+                            ...base,
+                            padding: "0 10px"
+                        }),
+
+                        singleValue: (base) => ({
+                            ...base,
+                            fontSize: "12px",
+                            color: "#374151"
+                        }),
+
+                        placeholder: (base) => ({
+                            ...base,
+                            fontSize: "12px",
+                            color: "#9ca3af"
+                        }),
+
+                        indicatorsContainer: (base) => ({
+                            ...base,
+                            height: "36px"
+                        }),
+
+                        dropdownIndicator: (base) => ({
+                            ...base,
+                            padding: "6px",
+                            color: "#6b7280"
+                        }),
+
+                        menu: (base) => ({
+                            ...base,
+                            borderRadius: "8px",
+                            overflow: "hidden",
+                            fontSize: "12px",
+                            zIndex: 50
+                        }),
+
+                        option: (base, state) => ({
+                            ...base,
+                            fontSize: "12px",
+                            padding: "8px 10px",
+                            backgroundColor: state.isSelected
+                                ? "#eff6ff"
+                                : state.isFocused
+                                    ? "#f9fafb"
+                                    : "#fff",
+                            color: state.isSelected
+                                ? "#2563eb"
+                                : "#374151",
+                            cursor: "pointer"
+                        })
+                    }}
+                />
+
+            </div>
+
+        </div>
+    )
+}
+
+export default EmployeeDashboardForm

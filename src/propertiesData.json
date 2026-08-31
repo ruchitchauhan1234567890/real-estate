@@ -1,0 +1,12 @@
+{
+  "properties": [
+    {
+      "propertyName": "xw",
+      "type": "Flat",
+      "location": "wx",
+      "status": "Available",
+      "id": "ob1f83m3MPU"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

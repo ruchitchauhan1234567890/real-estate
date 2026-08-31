@@ -1,0 +1,11 @@
+{
+    "properties" : [
+        {
+            "id" :1,
+            "title" : "Luxury Villa",
+            "Price" : 2500000,
+            "location" : "Ahmedabad",
+            "status" : "Available"
+        }
+    ]
+}

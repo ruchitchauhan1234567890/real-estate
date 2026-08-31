@@ -1,0 +1,38 @@
+import React from 'react'
+
+const EmployeeTable = ({data,setData}) => {
+  return (
+    <div>
+      <table>
+        <thead>
+            <tr>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Role</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Join Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {data.map((curr) => {
+                return (
+                    <tr>
+
+                        <td>{curr.name}</td>
+                        <td>{curr.department}</td>
+                        <td>{curr.role}</td>
+                        <td>{curr.phone}</td>
+                        <td>{curr.status}</td>
+                        <td>{curr.joinDate}</td>
+                    </tr>
+                    
+                )
+            })}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+export default EmployeeTable

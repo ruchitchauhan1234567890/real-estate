@@ -1,0 +1,42 @@
+import React from 'react'
+
+const PropertiesTable = ({propertiesData}) => {
+
+    
+  return (
+    <div>
+      <table className="w-full border-collapse border-2 mt-4">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Image</th>
+                    <th>Property Name</th>
+                    <th>Type</th>
+                    <th>Price</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {propertiesData.map((curr,index) => {
+                    console.log(curr.file.name)
+                    return (
+                        <tr>
+                            <td>{index + 1}</td>
+                            <td><img src={URL.createObjectURL(curr.file)} className="w-15 h-10 rounded-sm"/></td>
+                            <td>{curr.propertyName}</td>
+                            <td>{curr.type}</td>
+                            <td>{curr.price}</td>
+                            <td>{curr.location}</td>
+                            <td>{curr.status}</td>
+                        </tr>
+                    )
+                })}
+               
+            </tbody>
+      </table>
+    </div>
+  )
+}
+
+export default PropertiesTable

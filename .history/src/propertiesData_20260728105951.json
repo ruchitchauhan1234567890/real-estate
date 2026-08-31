@@ -1,0 +1,36 @@
+{
+  "properties": [
+    {
+      "id": "1",
+      "title": "Luxury Villa",
+      "price": 2500000,
+      "location": "Ahmedabad",
+      "status": "Available"
+    },
+    {
+      "propertyName": "xw",
+      "type": "Independent House",
+      "location": "ce",
+      "status": "Sold",
+      "src": "C:\\fakepath\\ChatGPT Image Jul 27, 2026, 04_07_32 PM.png",
+      "id": "LAMv0rRgoIU"
+    },
+    {
+      "propertyName": "",
+      "type": "",
+      "location": "",
+      "status": "",
+      "src": "",
+      "id": "-V1d19PVUDU"
+    },
+    {
+      "propertyName": "",
+      "type": "",
+      "location": "",
+      "status": "",
+      "src": "",
+      "id": "6OgLxnZsluQ"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

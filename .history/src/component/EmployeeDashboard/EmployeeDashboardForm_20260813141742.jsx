@@ -1,0 +1,31 @@
+import React from 'react'
+
+const EmployeeDashboardForm = () => {
+
+    const employee = JSON.parse(localStorage.getItem("employee"))
+    const employees = employee.filter((emp) => !emp.isAdmin)
+    console.log(employees)
+
+    return (
+        <div>
+            <div>
+                <p className="text-1xl font-bold">Employee Dashboard</p>
+                <p className="text-xs">View employee performance and their activities</p>
+            </div>
+            <div>
+                <select>
+                    {employees.map((emp) => {(
+                        <div>
+                            <option>
+                                {emp.name}
+                            </option>
+                        </div>
+                    )})}
+                </select>
+            </div>
+        </div>
+
+    )
+}
+
+export default EmployeeDashboardForm

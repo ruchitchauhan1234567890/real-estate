@@ -1,0 +1,12 @@
+import React from 'react'
+
+const LeadsForm = () => {
+  return (
+    <div className="flex justify-between items-center bg-red-200 h-12 px-2">
+      <p>Leads Management</p>
+      <button className="px-2 m-2 rounded-sm bg-blue-400">Add Lead</button>
+    </div>
+  )
+}
+
+export default LeadsForm

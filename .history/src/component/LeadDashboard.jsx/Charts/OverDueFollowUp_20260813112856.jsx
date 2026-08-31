@@ -1,0 +1,40 @@
+const OverDueFollowUp = ({ data }) => {
+    let date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0')
+    const formattedDate = `${year}-${month}-${day}`;
+
+    const overDue = data?.filter((item) => {
+        if (item.nextFollowUpDate === "") return false
+        return item.nextFollowUpDate < formattedDate
+    }) || [];
+
+    console.log(overDue)
+    return (
+        <div className="w-80 mt-2 h-auto shadow-sm rounded-sm  overflow-y-auto">
+            <p className="font-bold mt-4 px-3">OverDue Follow-up</p>
+            {overDue.map((item) => (
+                <div key={item.id || item.phone} className="p-2 flex justify-between rounded-sm hover:bg-gray-300 m-1 w-70">
+                    <div className="flex gap-2">
+                        <div className="items-center m-auto "> <p className="rounded-full text-center bg-gray-400 h-7 w-7">{item.name[0]}</p></div>
+                        <div>
+                            <p>{Math.ceil(
+                                (new Date(formattedDate) - new Date(item.nextFollowUpDate))
+                                / (1000 * 60 * 60 * 24)
+                            )} days overdue</p>
+                            <p className="font-bold">{item.name}</p>
+                            <p className="text-sm text-gray-500">assignedTo:
+                                <span>{item.assignedTo}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    )
+}
+
+export default OverDueFollowUp

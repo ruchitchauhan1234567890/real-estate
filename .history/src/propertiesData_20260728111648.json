@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "propertyName": "",
+      "type": "",
+      "location": "",
+      "status": "",
+      "src": "",
+      "id": "a75bDF_JNas"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
