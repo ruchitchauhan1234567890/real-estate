@@ -62,7 +62,7 @@ const RegisterForm = () => {
             department: "Sales",
             role: "Sales Executive",
             status: "Active",
-            isAdmin: true,
+            isAdmin: false,
             date: new Date().toISOString().split('T')[0]
         }
 
