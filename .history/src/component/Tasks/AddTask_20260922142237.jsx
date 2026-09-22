@@ -3,7 +3,6 @@ import { IoClose } from "react-icons/io5";
 import { TaskContext } from "../../ContextAPI/TaskContext";
 import Select from "react-select";
 import { useDispatch } from "react-redux";
-import { addNotification } from "../../redux/Slice/notificationSlice";
 
 const AddTask = () => {
 
@@ -17,7 +16,6 @@ const AddTask = () => {
     } = useContext(TaskContext);
 
     const [selectEmployee, setSelectEmployee] = useState("");
-    console.log(selectEmployee)
 
     const [inputData, setInputData] = useState({
         relatedTask: "lead",
@@ -111,7 +109,7 @@ const AddTask = () => {
                 addNotification({
                     id: crypto.randomUUID(),
 
-                    userId: selectEmployee.id,
+                    userId: selectedEmployee.id,
 
                     type: "TASK",
 

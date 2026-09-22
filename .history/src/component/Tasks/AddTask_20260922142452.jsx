@@ -17,7 +17,6 @@ const AddTask = () => {
     } = useContext(TaskContext);
 
     const [selectEmployee, setSelectEmployee] = useState("");
-    console.log(selectEmployee)
 
     const [inputData, setInputData] = useState({
         relatedTask: "lead",

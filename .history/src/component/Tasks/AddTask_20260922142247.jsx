@@ -17,7 +17,6 @@ const AddTask = () => {
     } = useContext(TaskContext);
 
     const [selectEmployee, setSelectEmployee] = useState("");
-    console.log(selectEmployee)
 
     const [inputData, setInputData] = useState({
         relatedTask: "lead",
@@ -111,7 +110,7 @@ const AddTask = () => {
                 addNotification({
                     id: crypto.randomUUID(),
 
-                    userId: selectEmployee.id,
+                    userId: selectedEmployee.id,
 
                     type: "TASK",
 

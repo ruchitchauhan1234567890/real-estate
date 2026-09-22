@@ -7,9 +7,9 @@ import { Provider } from 'react-redux'
 import store from './redux/Store.jsx'
 
 createRoot(document.getElementById('root')).render(
-    <Provider store={store}>
-        <ThemeProvider>
-            <App />
-        </ThemeProvider>
-    </Provider>
+    <Provider store={store}
+    <ThemeProvider>
+        <App />
+    </ThemeProvider>
+    <Provider/>
 )

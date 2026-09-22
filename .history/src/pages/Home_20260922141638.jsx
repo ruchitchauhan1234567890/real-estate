@@ -22,7 +22,6 @@ import LeadCreationChart from "../component/Dashboard/Charts/LeadCreationChart.j
 import EmployeeDashboardCard from "../component/EmployeeBaseDashboard/EmployeeDashboard"
 import OverDueFollowUp from "../component/LeadDashboard.jsx/Charts/OverDueFollowUp.jsx"
 import TodaysFollowUp from "../component/LeadDashboard.jsx/Charts/TodaysFollowUp.jsx"
-import { useSelector } from "react-redux"
 
 
 const Home = () => {
